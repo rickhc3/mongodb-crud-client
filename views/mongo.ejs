@@ -1,0 +1,89 @@
+
+
+<!-- 1. Add Person to Collection -->
+<div id="1" class="menu-div" style="display:none">
+    <form method="POST" action="/person" >
+
+        <span>Adicionar uma pessoa ao DB.</span><hr><br>
+
+            <label>Nome Completo:</label>
+            <input type="text" name="firstname" id ="firstname" class="field-divided" placeholder="Nome" size=10  required/>
+            <input type="text" name="surname" id="surname" class="field-divided" placeholder="Sobrenome"  required/><br>
+            <label>Telephone:</label>
+
+            <input type="number" name="telephone" id ="telephone" class="field-divided" placeholder="Telefone" size=50 required>
+            <input type="text" maxlength="2" name="uf" id ="uf" class="field-divided" placeholder="Estado" size=50 required><br><br>
+            
+            <input type="submit" value="Adicionar Registro" />
+    </form>
+
+    <label >Resposta:</label>
+    <textarea name="response" id ="response"  readonly><%- JSON.stringify(ui.data[1],null,3) %></textarea>
+</div>
+
+
+<!-- 2. Get Persons -->
+<div id="2" class="menu-div" style="display:none">
+    <form method="GET" action="/person" >
+        <span>Listar pessoas</span><hr><br>
+        <input type="submit" value="Listar pessoas" />
+    </form>
+
+    <br>
+    <label>Pessoas:</label>
+<textarea readonly>
+<% if ( typeof ui.data[2] == 'object' && ui.data[2] ) { %><%for (var i in ui.data[2].data){ %><%= i %>: 
+Mongo ID:<%= ui.data[2].data[i]._id %>
+Nome: <%= ui.data[2].data[i].firstname %> <%= ui.data[2].data[i].surname %> 
+Telefone: <%= ui.data[2].data[i].telephone %>
+Estado: <%= ui.data[2].data[i].uf %>
+
+
+<%}%>
+<%}%>
+</textarea>
+    <br>
+    <label >Resposta:</label>
+    <textarea name="response" id ="response"  readonly><%- JSON.stringify(ui.data[2],null,3) %></textarea>
+</div>
+
+<!-- 3. Update Persons -->
+<div id="3" class="menu-div" style="display:none">
+    <form method="POST" action="/person/update">
+        <span>Atualizar Pessoa </span><hr><br>
+        
+
+            <label>Mongo ID:</label>
+            <input type="text" name ="mongoid" id ="mongoid"  placeholder="Mongo ID" required> <br>
+
+            <label>Nome Completo:</label>
+            <input type="text" name="firstname" id ="firstname" placeholder="Nome"  size=35 required/>
+            <input type="text" name="surname" id="surname" placeholder="Sobrenome" size=35 required/>
+
+
+            <label>Telephone:</label>
+
+            <input type="number" name="telephone" id ="telephone" class="field-divided" placeholder="Telefone" size=50 required>
+            <input type="text" maxlength="2" name="uf" id ="uf" class="field-divided" placeholder="Estado" size=50 required><br><br>
+            <input type="submit" value="Atualizar Pessoa"/>
+    </form>
+    <br>
+    <label >Response:</label>
+    <textarea name="response" id ="response"  readonly><%- JSON.stringify(ui.data[3],null,3) %></textarea>
+</div>
+
+<!-- 4. Delete Persons -->
+<div id="4" class="menu-div" style="display:none">
+    <form method="POST" action="/person/delete" >    
+        <span>Deletar Pessoas</span><hr><br>
+        <label>Mongo ID:</label>
+        <input placeholder ="Mongo ID" id ="mongoid" type="text" name ="mongoid" size=50 required><br><br>
+        <input type="submit" value="Deletar Pessoas" />
+        <br>
+    </form>
+    <br>
+
+    <label >Response:</label>
+    <textarea name="response" id ="response"  readonly><%- JSON.stringify(ui.data[4],null,3) %></textarea>
+</div>
+
